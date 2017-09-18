@@ -8,20 +8,20 @@
 				  "-Xms1024m -Xmx2048m -XX:MaxNewSize=512m -XX:MaxPermSize=256m"
 
 - Thread tuning
-	-These configurations need to be performed in TOMCAT_HOME/conf/server.xml.
-		- connector configuration
-	 	<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" acceptorThreadCount="2" maxThreads="400" acceptCount="200" minSpareThreads="20"/>
-		 	- acceptorThreadCount= # of processors
-	 		- We have also allocated 400 threads to process requests, the default value is 200
-	 			- rule of thumb= 150* #of cores
-	 		- The "acceptCount" is set to 200 which denotes the maximum queue length to be used for incoming connections, The default value is 100
-	 			- If the application is reasonably fast (for example, it exposes REST web services that usually send a response is a few milliseconds), then you can configure a large acceptCount, up to the same number of maxThreads.
-	 		- Lastly we have set the minimum threads to 20 so that there are always 20 threads running in the pool to service requests.
-		- don't use Bio because Nio is better in every way
-			protocol="org.apache.coyote.http11.Http11NioProtocol"
-		- enable keepAlive
-		- compression="on"
-		- compressableMimeType="text/html,text/xml,text/plain"
+	- These configurations need to be performed in TOMCAT_HOME/conf/server.xml.
+		- connector configuration: 
+			- `<Connector port="8009" protocol="AJP/1.3" redirectPort="8443" acceptorThreadCount="2" maxThreads="400" acceptCount="200" minSpareThreads="20"/> `
+				- acceptorThreadCount= # of processors
+	 	 		* We have also allocated 400 threads to process requests, the default value is 200
+	 			* rule of thumb= 150* #of cores
+	 	 		* The "acceptCount" is set to 200 which denotes the maximum queue length to be used for incoming connections, The default value is 100
+	 			* If the application is reasonably fast (for example, it exposes REST web services that usually send a response is a few milliseconds), then you can configure a large acceptCount, up to the same number of maxThreads.
+	 			* Lastly we have set the minimum threads to 20 so that there are always 20 threads running in the pool to service requests.
+		* don't use Bio because Nio is better in every way
+			* protocol="org.apache.coyote.http11.Http11NioProtocol"
+		* enable keepAlive
+		* compression="on"
+		* compressableMimeType="text/html,text/xml,text/plain"
 		
 - OS tuning
 
